@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Visão geral{% endblock %}
+{% block content %}
+{# TELA 9 — Visão geral (perfis Diretor/Secretaria/Financeiro/Professor/Consulta — o Administrador geral usa schools/master_dashboard.html).
+   Tabelas: enrollments, classes, payments, teachers (agregados da escola ativa).
+   Contexto: metrics {enrolled, active_classes, teachers, overdue_payments, overdue_amount_display, confirmed_amount_display},
+   recent_enrollments [{student, class_group, enrolled_at}], can_new_student. #}
+<header class="page-head"><h1>Visão geral</h1>
+  {% if can_new_student %}<button class="btn" hx-get="{% url 'students:students_create' %}" hx-target="#modal-root">Novo aluno</button>{% endif %}</header>
+<div class="metricas">
+  <div class="metrica"><strong>{{ metrics.enrolled }}</strong><span>alunos matriculados</span></div>
+  <div class="metrica"><strong>{{ metrics.active_classes }}</strong><span>turmas ativas</span></div>
+  <div class="metrica"><strong>{{ metrics.teachers }}</strong><span>professores</span></div>
+  {% if nav.finance %}<div class="metrica"><strong>{{ metrics.confirmed_amount_display }}</strong><span>confirmado no período</span></div>{% endif %}
+  <div class="metrica"><strong>{{ metrics.overdue_payments }}</strong><span>cobranças em atraso ({{ metrics.overdue_amount_display }})</span></div>
+</div>
+{% if recent_enrollments %}
+<section class="painel"><h2>Matrículas recentes</h2>
+  <table class="tabela"><thead><tr><th>Aluno</th><th>Turma</th><th>Data</th></tr></thead>
+    <tbody>{% for e in recent_enrollments %}<tr><td>{{ e.student }}</td><td>{{ e.class_group }}</td><td>{{ e.enrolled_at|date:"d/m/Y" }}</td></tr>{% endfor %}</tbody></table>
+</section>{% endif %}
+{% endblock %}

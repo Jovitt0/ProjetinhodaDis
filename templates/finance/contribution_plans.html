@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Planos de contribuição{% endblock %}
+{% block content %}
+{# TELA 21 — Planos de contribuição. Tabelas: contribution_plans. Contexto: page_obj, can{create,edit,delete}, filter_options. #}
+<header class="page-head"><h1>Planos de contribuição</h1>{% if can.create %}<button class="btn" hx-get="{% url 'finance:plans_create' %}" hx-target="#modal-root">Adicionar</button>{% endif %}</header>
+<form id="filtros" class="filtros" hx-get="{% url 'finance:plans_list' %}" hx-target="#tabela" hx-push-url="true" hx-trigger="input changed delay:300ms, change"></form>
+{# #tabela recarrega quando o backend dispara o evento 'tabela-atualizar' (HX-Trigger) após salvar/excluir #}
+<div id="tabela" hx-get="{% url 'finance:plans_list' %}" hx-include="#filtros" hx-trigger="tabela-atualizar from:body" hx-target="this">
+  {% include "finance/partials/plans_table.html" %}
+</div>
+{% endblock %}

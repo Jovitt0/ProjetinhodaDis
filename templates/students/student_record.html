@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Ficha do aluno{% endblock %}
+{% block content %}
+{# TELA 18 — Ficha do aluno. Tabelas: students, enrollments, student_responsibles, student_pickup_authorizations. Contexto esperado: student, secoes = [(id, título, url_name)] para as parciais student_record_enrollments/_guardians/_pickups (carregadas via HTMX) #}
+<header class="page-head"><h1>Ficha do aluno</h1></header>
+<header class="ficha"><h2>{{ student.full_name }}</h2><span class="tag">{{ student.registration_number }}</span></header>
+{% for id, titulo, nome in secoes %}
+<section class="painel"><h2>{{ titulo }}</h2>
+  <div hx-get="{% url nome student.pk %}" hx-trigger="load, tabela-atualizar from:body">Carregando…</div></section>
+{% endfor %}
+{% endblock %}

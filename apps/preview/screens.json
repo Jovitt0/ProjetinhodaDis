@@ -1,0 +1,217 @@
+{
+ "access/users": {
+  "tpl": "user_management",
+  "title": "Usuários e vínculos",
+  "fields": [
+   "full_name",
+   "email",
+   "status"
+  ]
+ },
+ "access/memberships": {
+  "tpl": "roles_management",
+  "title": "Perfis de acesso por escola",
+  "fields": [
+   "roles",
+   "status"
+  ]
+ },
+ "schools/schools": {
+  "tpl": "school_list",
+  "title": "Escolas",
+  "fields": [
+   "code",
+   "name",
+   "legal_name",
+   "document_number",
+   "status",
+   "timezone"
+  ]
+ },
+ "schools/academic_years": {
+  "tpl": "academic_years",
+  "title": "Anos letivos",
+  "fields": [
+   "year",
+   "name",
+   "starts_on",
+   "ends_on",
+   "status"
+  ]
+ },
+ "academics/courses": {
+  "tpl": "course_list",
+  "title": "Cursos",
+  "fields": [
+   "code",
+   "name",
+   "description",
+   "status"
+  ]
+ },
+ "academics/subjects": {
+  "tpl": "subject_list",
+  "title": "Disciplinas",
+  "fields": [
+   "course",
+   "code",
+   "name",
+   "description",
+   "status"
+  ]
+ },
+ "academics/classes": {
+  "tpl": "class_list",
+  "title": "Turmas",
+  "fields": [
+   "course",
+   "academic_year",
+   "code",
+   "name",
+   "grade_level"
+  ]
+ },
+ "academics/teachers": {
+  "tpl": "teacher_list",
+  "title": "Professores",
+  "fields": [
+   "full_name",
+   "registration_number",
+   "document_number",
+   "user"
+  ]
+ },
+ "academics/assignments": {
+  "tpl": "teacher_assignments",
+  "title": "Alocação de professores",
+  "fields": [
+   "teacher",
+   "class_group",
+   "subject",
+   "starts_on",
+   "ends_on",
+   "is_primary"
+  ]
+ },
+ "students/students": {
+  "tpl": "student_list",
+  "title": "Alunos",
+  "fields": [
+   "registration_number",
+   "full_name",
+   "social_name",
+   "birth_date",
+   "document_number",
+   "status"
+  ]
+ },
+ "students/responsibles": {
+  "tpl": "responsible_list",
+  "title": "Responsáveis",
+  "fields": [
+   "full_name",
+   "document_number",
+   "email",
+   "phone"
+  ]
+ },
+ "students/pickups": {
+  "tpl": "pickup_authorizations",
+  "title": "Autorizações de retirada",
+  "fields": [
+   "student",
+   "authorized_name",
+   "document_number",
+   "relationship_type",
+   "valid_from",
+   "valid_until",
+   "is_active",
+   "notes"
+  ]
+ },
+ "enrollments/enrollments": {
+  "tpl": "enrollment_dashboard",
+  "title": "Gestão de matrículas",
+  "fields": [
+   "status"
+  ]
+ },
+ "finance/plans": {
+  "tpl": "contribution_plans",
+  "title": "Planos de contribuição",
+  "fields": [
+   "name",
+   "description",
+   "amount",
+   "frequency",
+   "active"
+  ]
+ },
+ "finance/payments": {
+  "tpl": "payment_management",
+  "title": "Cobranças e pagamentos",
+  "fields": [
+   "enrollment",
+   "responsible",
+   "contribution_plan",
+   "description",
+   "due_date",
+   "amount",
+   "status",
+   "paid_at",
+   "external_reference"
+  ]
+ },
+ "privacy/activities": {
+  "tpl": "processing_activities",
+  "title": "Atividades de tratamento de dados",
+  "fields": [
+   "name",
+   "purpose",
+   "legal_basis",
+   "data_categories",
+   "retention_rule",
+   "active"
+  ]
+ },
+ "privacy/retention": {
+  "tpl": "retention_rules",
+  "title": "Regras de retenção e descarte",
+  "fields": [
+   "name",
+   "entity_type",
+   "retention_days",
+   "disposal_action",
+   "active"
+  ]
+ },
+ "privacy/dsar": {
+  "tpl": "dsar_requests",
+  "title": "Requisições de titulares",
+  "fields": [
+   "requester_name",
+   "requester_document",
+   "request_type",
+   "description",
+   "status",
+   "completed_at"
+  ]
+ },
+ "privacy/incidents": {
+  "tpl": "security_incidents",
+  "title": "Incidentes de segurança",
+  "fields": [
+   "title",
+   "description",
+   "severity",
+   "occurred_at",
+   "resolved_at",
+   "status"
+  ]
+ },
+ "audit/logs": {
+  "tpl": "audit_logs",
+  "title": "Histórico de auditoria",
+  "fields": []
+ }
+}

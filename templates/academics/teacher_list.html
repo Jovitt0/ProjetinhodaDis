@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Professores{% endblock %}
+{% block content %}
+{# TELA 13 — Professores. Tabelas: teachers. Contexto: page_obj, can{create,edit,delete}, filter_options. #}
+<header class="page-head"><h1>Professores</h1>{% if can.create %}<button class="btn" hx-get="{% url 'academics:teachers_create' %}" hx-target="#modal-root">Adicionar</button>{% endif %}</header>
+<form id="filtros" class="filtros" hx-get="{% url 'academics:teachers_list' %}" hx-target="#tabela" hx-push-url="true" hx-trigger="input changed delay:300ms, change"><label class="busca">Buscar <input type="search" name="q" value="{{ request.GET.q }}" placeholder="Digite para filtrar"></label></form>
+{# #tabela recarrega quando o backend dispara o evento 'tabela-atualizar' (HX-Trigger) após salvar/excluir #}
+<div id="tabela" hx-get="{% url 'academics:teachers_list' %}" hx-include="#filtros" hx-trigger="tabela-atualizar from:body" hx-target="this">
+  {% include "academics/partials/teachers_table.html" %}
+</div>
+{% endblock %}

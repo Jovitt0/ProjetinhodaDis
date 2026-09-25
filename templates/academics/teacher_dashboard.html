@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Minhas turmas{% endblock %}
+{% block content %}
+{# TELA EXTRA — Painel do professor (perfil Professor). Tabelas: teacher_class_assignments, classes.
+   Renderizada por schools:dashboard quando o perfil é "professor". Contexto: classes [{name, students, subject}]. #}
+<header class="page-head"><h1>Minhas turmas</h1></header>
+<div class="grid2">
+{% for c in classes %}
+<article class="painel"><h2>{{ c.name }}</h2><p>{{ c.subject }} · {{ c.students }} alunos</p>
+  <a class="link" href="{% url 'academics:classes_list' %}">Ver turma</a></article>
+{% empty %}<p class="vazio">Nenhuma turma atribuída no momento.</p>{% endfor %}
+</div>
+{% endblock %}

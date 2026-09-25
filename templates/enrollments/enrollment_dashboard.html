@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Gestão de matrículas{% endblock %}
+{% block content %}
+{# TELA 20 — Gestão de matrículas. Tabelas: enrollments. Contexto: page_obj, can{create,edit,delete}, filter_options. #}
+<header class="page-head"><h1>Gestão de matrículas</h1><a class="btn" href="{% url 'enrollments:new_enrollment' %}">Nova matrícula</a></header>
+<form id="filtros" class="filtros" hx-get="{% url 'enrollments:enrollments_list' %}" hx-target="#tabela" hx-push-url="true" hx-trigger="input changed delay:300ms, change"><label class="busca">Buscar <input type="search" name="q" value="{{ request.GET.q }}" placeholder="Digite para filtrar"></label><label>Ano letivo <select name="academic_year"><option value="">Todos</option>{% for v, l in filter_options.academic_year %}<option value="{{ v }}" {% if request.GET.academic_year == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}</select></label><label>Turma <select name="class_group"><option value="">Todos</option>{% for v, l in filter_options.class_group %}<option value="{{ v }}" {% if request.GET.class_group == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}</select></label><label>Situação <select name="status"><option value="">Todos</option>{% for v, l in filter_options.status %}<option value="{{ v }}" {% if request.GET.status == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}</select></label></form>
+{# #tabela recarrega quando o backend dispara o evento 'tabela-atualizar' (HX-Trigger) após salvar/excluir #}
+<div id="tabela" hx-get="{% url 'enrollments:enrollments_list' %}" hx-include="#filtros" hx-trigger="tabela-atualizar from:body" hx-target="this">
+  {% include "enrollments/partials/enrollments_table.html" %}
+</div>
+{% endblock %}

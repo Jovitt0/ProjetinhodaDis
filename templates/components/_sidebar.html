@@ -1,0 +1,43 @@
+{# MENU: 1 grupo por módulo. Backend: context processor 'nav' = {modulo: bool} conforme permissões da escola ativa. #}
+<nav class="side" aria-label="Menu principal">
+{% if nav.schools %}<div class="grupo"><h2>Escola</h2><ul>
+<li><a href="{% url 'schools:dashboard' %}" {% if request.resolver_match.view_name == 'schools:dashboard' %}aria-current="page"{% endif %}>Visão geral</a></li>
+<li><a href="{% url 'schools:schools_list' %}" {% if request.resolver_match.view_name == 'schools:schools_list' %}aria-current="page"{% endif %}>Escolas</a></li>
+<li><a href="{% url 'schools:academic_years_list' %}" {% if request.resolver_match.view_name == 'schools:academic_years_list' %}aria-current="page"{% endif %}>Anos letivos</a></li>
+</ul></div>{% endif %}
+{% if nav.academics %}<div class="grupo"><h2>Acadêmico</h2><ul>
+<li><a href="{% url 'academics:courses_list' %}" {% if request.resolver_match.view_name == 'academics:courses_list' %}aria-current="page"{% endif %}>Cursos</a></li>
+<li><a href="{% url 'academics:subjects_list' %}" {% if request.resolver_match.view_name == 'academics:subjects_list' %}aria-current="page"{% endif %}>Disciplinas</a></li>
+<li><a href="{% url 'academics:classes_list' %}" {% if request.resolver_match.view_name == 'academics:classes_list' %}aria-current="page"{% endif %}>Turmas</a></li>
+<li><a href="{% url 'academics:teachers_list' %}" {% if request.resolver_match.view_name == 'academics:teachers_list' %}aria-current="page"{% endif %}>Professores</a></li>
+<li><a href="{% url 'academics:assignments_list' %}" {% if request.resolver_match.view_name == 'academics:assignments_list' %}aria-current="page"{% endif %}>Alocação de professores</a></li>
+</ul></div>{% endif %}
+{% if nav.students %}<div class="grupo"><h2>Alunos</h2><ul>
+<li><a href="{% url 'students:students_list' %}" {% if request.resolver_match.view_name == 'students:students_list' %}aria-current="page"{% endif %}>Alunos</a></li>
+<li><a href="{% url 'students:responsibles_list' %}" {% if request.resolver_match.view_name == 'students:responsibles_list' %}aria-current="page"{% endif %}>Responsáveis</a></li>
+<li><a href="{% url 'students:pickups_list' %}" {% if request.resolver_match.view_name == 'students:pickups_list' %}aria-current="page"{% endif %}>Autorizações de retirada</a></li>
+</ul></div>{% endif %}
+{% if nav.enrollments %}<div class="grupo"><h2>Matrículas</h2><ul>
+{% if edit.matriculas %}<li><a href="{% url 'enrollments:new_enrollment' %}" {% if request.resolver_match.view_name == 'enrollments:new_enrollment' %}aria-current="page"{% endif %}>Nova matrícula</a></li>{% endif %}
+<li><a href="{% url 'enrollments:enrollments_list' %}" {% if request.resolver_match.view_name == 'enrollments:enrollments_list' %}aria-current="page"{% endif %}>Gestão de matrículas</a></li>
+</ul></div>{% endif %}
+{% if nav.finance %}<div class="grupo"><h2>Financeiro</h2><ul>
+<li><a href="{% url 'finance:guardian_portal' %}" {% if request.resolver_match.view_name == 'finance:guardian_portal' %}aria-current="page"{% endif %}>Central do responsável</a></li>
+<li><a href="{% url 'finance:plans_list' %}" {% if request.resolver_match.view_name == 'finance:plans_list' %}aria-current="page"{% endif %}>Planos de contribuição</a></li>
+<li><a href="{% url 'finance:payments_list' %}" {% if request.resolver_match.view_name == 'finance:payments_list' %}aria-current="page"{% endif %}>Cobranças e pagamentos</a></li>
+</ul></div>{% endif %}
+{% if nav.privacy %}<div class="grupo"><h2>Privacidade (LGPD)</h2><ul>
+<li><a href="{% url 'privacy:activities_list' %}" {% if request.resolver_match.view_name == 'privacy:activities_list' %}aria-current="page"{% endif %}>Atividades de tratamento de dados</a></li>
+<li><a href="{% url 'privacy:retention_list' %}" {% if request.resolver_match.view_name == 'privacy:retention_list' %}aria-current="page"{% endif %}>Regras de retenção e descarte</a></li>
+<li><a href="{% url 'privacy:dsar_list' %}" {% if request.resolver_match.view_name == 'privacy:dsar_list' %}aria-current="page"{% endif %}>Requisições de titulares</a></li>
+<li><a href="{% url 'privacy:incidents_list' %}" {% if request.resolver_match.view_name == 'privacy:incidents_list' %}aria-current="page"{% endif %}>Incidentes de segurança</a></li>
+</ul></div>{% endif %}
+{% if nav.access %}<div class="grupo"><h2>Acesso</h2><ul>
+<li><a href="{% url 'access:permission_matrix' %}" {% if request.resolver_match.view_name == 'access:permission_matrix' %}aria-current="page"{% endif %}>Matriz de permissões</a></li>
+<li><a href="{% url 'access:users_list' %}" {% if request.resolver_match.view_name == 'access:users_list' %}aria-current="page"{% endif %}>Usuários e vínculos</a></li>
+<li><a href="{% url 'access:memberships_list' %}" {% if request.resolver_match.view_name == 'access:memberships_list' %}aria-current="page"{% endif %}>Perfis de acesso por escola</a></li>
+</ul></div>{% endif %}
+{% if nav.audit %}<div class="grupo"><h2>Auditoria</h2><ul>
+<li><a href="{% url 'audit:logs_list' %}" {% if request.resolver_match.view_name == 'audit:logs_list' %}aria-current="page"{% endif %}>Histórico de auditoria</a></li>
+</ul></div>{% endif %}
+</nav>

@@ -1,0 +1,7 @@
+{# Paginação HTMX: mantém os filtros (#filtros) e troca só #tabela. Contexto: page_obj #}
+{% if page_obj.paginator.num_pages > 1 %}
+<nav class="paginacao" aria-label="Paginação">
+  {% if page_obj.has_previous %}<button class="link" hx-get="?page={{ page_obj.previous_page_number }}" hx-include="#filtros" hx-target="#tabela">Anterior</button>{% endif %}
+  <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+  {% if page_obj.has_next %}<button class="link" hx-get="?page={{ page_obj.next_page_number }}" hx-include="#filtros" hx-target="#tabela">Próxima</button>{% endif %}
+</nav>{% endif %}

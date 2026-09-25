@@ -1,0 +1,43 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SYSALUNO{% endblock %} · SYSALUNO Central</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  {# Baixar htmx.min.js (2.x) para static/vendor/ — evitar CDN em sistema de governo #}
+  <script src="{% static 'vendor/htmx.min.js' %}" defer></script>
+  <script src="{% static 'js/app.js' %}" defer></script>
+</head>
+{# hx-headers: todo request HTMX leva o token CSRF do Django #}
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+{% block shell %}
+<div class="app">
+  {% include "components/_sidebar.html" %}
+  <div class="main">
+    <header class="topbar">
+      {# request.active_school vem do ActiveSchoolMiddleware #}
+      <span class="escola">{{ request.active_school.name }}</span>
+      {% if user_school_count > 1 %}<a href="{% url 'access:select_school' %}">Trocar escola</a>{% endif %}
+      {# Seletor de PRÉ-VISUALIZAÇÃO: troca o perfil simulado. Não existe no backend real (o perfil vem do vínculo do usuário). #}
+      <form method="post" action="{% url 'set_role' %}" class="switcher">{% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <label class="sr" for="preview-role">Perfil simulado</label>
+        <select id="preview-role" name="role" onchange="this.form.submit()">
+          {% for key, label in roles %}<option value="{{ key }}" {% if key == role %}selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+      </form>
+      <span class="grow"></span>
+      <a href="{% url 'accounts:profile' %}">{{ request.user.full_name }}</a>
+      <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button class="link">Sair</button></form>
+    </header>
+    <main id="conteudo">{% include "components/_messages.html" %}{% block content %}{% endblock %}</main>
+  </div>
+</div>
+{% endblock %}
+<div id="modal-root"></div>      {# HTMX injeta modais aqui #}
+<div id="toasts" aria-live="polite"></div>
+</body>
+</html>

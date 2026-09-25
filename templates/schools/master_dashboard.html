@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Painel do administrador geral{% endblock %}
+{% block content %}
+{# TELA EXTRA — Painel do administrador geral (perfil Master, sem escola única). Tabelas: schools + agregados de enrollments/classes por escola.
+   Renderizada por schools:dashboard quando o perfil é "master". Contexto: schools [{name, code, students, classes, overdue}], totals {students, classes}. #}
+<header class="page-head"><h1>Painel do administrador geral</h1>
+  <a class="btn" href="{% url 'schools:schools_list' %}">Gerenciar escolas</a></header>
+<div class="metricas">
+  <div class="metrica"><strong>{{ schools|length }}</strong><span>escolas cadastradas</span></div>
+  <div class="metrica"><strong>{{ totals.students }}</strong><span>alunos matriculados (todas as escolas)</span></div>
+  <div class="metrica"><strong>{{ totals.classes }}</strong><span>turmas ativas (todas as escolas)</span></div>
+</div>
+<table class="tabela"><caption>Escolas</caption>
+  <thead><tr><th>Escola</th><th>Código</th><th>Alunos</th><th>Turmas</th><th>Cobranças em atraso</th></tr></thead>
+  <tbody>{% for s in schools %}<tr><td>{{ s.name }}</td><td>{{ s.code }}</td><td>{{ s.students }}</td><td>{{ s.classes }}</td><td>{{ s.overdue }}</td></tr>{% endfor %}</tbody>
+</table>
+{% endblock %}

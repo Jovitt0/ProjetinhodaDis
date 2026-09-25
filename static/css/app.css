@@ -1,0 +1,37 @@
+/* Tokens — identidade institucional: azul-petróleo sobre cinza frio. Ajuste aqui, nada mais. */
+:root{--ink:#17202e;--muted:#5b6678;--line:#d9dfe8;--bg:#f3f5f8;--panel:#fff;--brand:#1d4e89;--nav:#14243b;--ok:#1b7f4b;--bad:#b3261e;--r:6px;font-family:"Public Sans",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.5}
+a{color:var(--brand)}:focus-visible{outline:3px solid #f2b705;outline-offset:2px}
+.sr{position:absolute;left:-9999px}.grow{flex:1}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}.main{min-width:0}
+.side{background:var(--nav);color:#fff;padding:1rem}.side h2{font-size:.8rem;font-weight:500;color:#9fb0c8;margin:1rem 0 .25rem}
+.side ul{list-style:none;margin:0;padding:0}.side a{display:block;color:#e8eef7;text-decoration:none;padding:.35rem .5rem;border-radius:var(--r)}
+.side a:hover,.side a[aria-current]{background:#22395a}
+.topbar{display:flex;gap:1rem;align-items:center;background:var(--panel);border-bottom:1px solid var(--line);padding:.6rem 1.25rem}.escola{font-weight:700}
+#conteudo{padding:1.5rem 1.25rem;max-width:1200px}
+.page-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}h1{font-size:1.4rem;margin:0}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:var(--r);padding:.5rem 1rem;font:inherit;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block}
+.link{background:none;border:0;color:var(--brand);cursor:pointer;font:inherit;padding:.25rem}.perigo{color:var(--bad)}
+.painel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1rem}
+.filtros{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1rem}.filtros label{font-size:.9rem;color:var(--muted)}
+input,select,textarea{font:inherit;padding:.45rem .6rem;border:1px solid #b9c3d1;border-radius:var(--r);background:#fff;width:100%}.filtros input,.filtros select{width:auto}
+.tabela{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);margin-bottom:1rem}
+.tabela caption{text-align:left;font-weight:700;padding:.5rem}
+.tabela th,.tabela td{text-align:left;padding:.6rem .75rem;border-bottom:1px solid var(--line)}.tabela th{background:#eef2f7;font-weight:500}
+.acoes{text-align:right;white-space:nowrap}.vazio{color:var(--muted);text-align:center;padding:2rem}
+.campo{margin-bottom:.9rem}.campo label{display:block;font-weight:500;margin-bottom:.2rem}.campo small{display:block;color:var(--muted)}
+.erro,.tem-erro small.erro{color:var(--bad)}.tem-erro input,.tem-erro select{border-color:var(--bad)}
+.overlay{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;z-index:10;padding:1rem}
+.modal{background:#fff;border-radius:var(--r);padding:1.25rem;width:min(560px,100%);max-height:90vh;overflow:auto}.rodape{display:flex;justify-content:flex-end;gap:.5rem}
+.auth{min-height:100vh;display:grid;place-items:center;padding:1rem}.auth .painel{width:min(420px,100%)}
+.opcao{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:.75rem;margin-bottom:.5rem;cursor:pointer;font:inherit}.opcao:hover{border-color:var(--brand)}.opcao span{display:block;color:var(--muted)}
+.metricas{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}.metrica{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1rem}.metrica strong{font-size:2rem;display:block}.metrica span{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}.linha{display:flex;gap:1rem;align-items:center}.linha div{flex:1}.linha span{display:block;color:var(--muted)}
+.tag{background:#e6edf7;border-radius:99px;padding:.1rem .6rem;font-size:.85rem}.tag-paid{background:#dff3e8}.tag-overdue{background:#fbe3e1}
+.aviso{padding:.6rem 1rem;border-radius:var(--r);background:#e6edf7}.aviso-error{background:#fbe3e1}.aviso-success{background:#dff3e8}
+#toasts{position:fixed;right:1rem;bottom:1rem;display:grid;gap:.5rem}.toast{background:var(--nav);color:#fff;padding:.6rem 1rem;border-radius:var(--r)}
+@media(max-width:800px){.app{grid-template-columns:1fr}.side{display:none}.tabela{display:block;overflow-x:auto}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* Seletor de perfil simulado (base.html) */
+.switcher{display:flex;align-items:center;gap:.4rem}.switcher select{width:auto;padding:.3rem .5rem}

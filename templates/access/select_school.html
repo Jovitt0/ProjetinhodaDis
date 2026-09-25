@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Escolher escola{% endblock %}
+{# TELA 2 — Seleção de escola ativa. Contexto: memberships (user_school_links ativos do usuário, com .school e .roles).
+   SEGURANÇA: o POST envia o id do VÍNCULO (membership_id), nunca school_id; o backend valida que pertence a request.user. #}
+{% block shell %}
+<main class="auth"><form class="painel" method="post" action="{% url 'access:select_school' %}">{% csrf_token %}
+  <h1>Em qual escola você vai trabalhar?</h1>
+  {% for m in memberships %}
+  <button class="opcao" name="membership_id" value="{{ m.pk }}"><strong>{{ m.school.name }}</strong>
+    <span>{% for r in m.roles.all %}{{ r.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span></button>
+  {% empty %}<p class="vazio">Seu usuário ainda não tem acesso a nenhuma escola. Procure a administração.</p>{% endfor %}
+</form></main>
+{% endblock %}

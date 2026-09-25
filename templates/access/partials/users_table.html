@@ -1,0 +1,6 @@
+{# PARCIAL HTMX — devolvido sozinho quando request.htmx. Cada linha = 1 objeto de page_obj (já filtrado pela escola ativa). #}
+<table class="tabela"><thead><tr><th>Nome</th><th>E-mail</th><th>Situação</th><th>Último acesso</th><th class="acoes"><span class="sr">Ações</span></th></tr></thead><tbody>
+{% for obj in page_obj %}<tr id="row-{{ obj.pk }}"><td>{{ obj.full_name }}</td><td>{{ obj.email }}</td><td>{{ obj.get_status_display }}</td><td>{{ obj.last_login_at|date:"d/m/Y H:i"|default:"—" }}</td><td class="acoes">{% if can.edit %}<button class="link" hx-get="{% url 'access:users_edit' obj.pk %}" hx-target="#modal-root">Editar</button>{% endif %}{% if can.delete %}<button class="link perigo" hx-delete="{% url 'access:users_delete' obj.pk %}" hx-confirm="Excluir este registro? A ação fica registrada na auditoria." hx-target="#row-{{ obj.pk }}" hx-swap="outerHTML">Excluir</button>{% endif %}</td></tr>
+{% empty %}<tr><td colspan="5" class="vazio">Nenhum registro encontrado. Ajuste a busca ou adicione um novo.</td></tr>{% endfor %}
+</tbody></table>
+{% include "components/_pagination.html" %}

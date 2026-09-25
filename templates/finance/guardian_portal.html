@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Central do responsável{% endblock %}
+{% block content %}
+{# TELA 23 — Central do responsável. Tabelas: payments (do responsável logado). Contexto esperado: payments (pendentes e pagos do responsável), can_second_copy #}
+<header class="page-head"><h1>Central do responsável</h1></header>
+{% for p in payments %}
+<article class="painel linha"><div><strong>{{ p.description }}</strong><span>Vence em {{ p.due_date|date:"d/m/Y" }} · {{ p.amount_display }}</span></div>
+  <span class="tag tag-{{ p.status }}">{{ p.get_status_display }}</span>
+  {% if p.status != "paid" %}<a class="btn" href="{% url 'finance:second_copy' p.pk %}">Emitir segunda via</a>{% endif %}</article>
+{% empty %}<p class="vazio">Nenhum débito em aberto. Tudo em dia.</p>{% endfor %}
+{% endblock %}

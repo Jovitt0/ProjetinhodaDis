@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Atividades de tratamento de dados{% endblock %}
+{% block content %}
+{# TELA 24 — Atividades de tratamento de dados. Tabelas: processing_activities. Contexto: page_obj, can{create,edit,delete}, filter_options. #}
+<header class="page-head"><h1>Atividades de tratamento de dados</h1>{% if can.create %}<button class="btn" hx-get="{% url 'privacy:activities_create' %}" hx-target="#modal-root">Adicionar</button>{% endif %}</header>
+<form id="filtros" class="filtros" hx-get="{% url 'privacy:activities_list' %}" hx-target="#tabela" hx-push-url="true" hx-trigger="input changed delay:300ms, change"><label class="busca">Buscar <input type="search" name="q" value="{{ request.GET.q }}" placeholder="Digite para filtrar"></label></form>
+{# #tabela recarrega quando o backend dispara o evento 'tabela-atualizar' (HX-Trigger) após salvar/excluir #}
+<div id="tabela" hx-get="{% url 'privacy:activities_list' %}" hx-include="#filtros" hx-trigger="tabela-atualizar from:body" hx-target="this">
+  {% include "privacy/partials/activities_table.html" %}
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{# MODAL de cadastro/edição usado por TODAS as telas CRUD.
+   Contexto: form (ModelForm sem 'school'), form_title, action_url.
+   Sucesso → backend responde 204 + HX-Trigger (ver apps/core/htmx.py). Erro → 422 com este mesmo template. #}
+<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+  <div class="modal">
+    <h2 id="modal-titulo">{{ form_title }}</h2>
+    <form id="modal-form" hx-post="{{ action_url }}" hx-target="#modal-form" hx-swap="outerHTML">{% csrf_token %}
+      {% if form.non_field_errors %}<p class="erro" role="alert">{{ form.non_field_errors.0 }}</p>{% endif %}
+      {% for f in form %}{% include "components/_field.html" with field=f %}{% endfor %}
+      <div class="rodape"><button type="button" class="link" onclick="htmx.trigger('body','modal-fechar')">Cancelar</button><button class="btn">Salvar</button></div>
+    </form>
+  </div>
+</div>

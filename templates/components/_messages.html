@@ -1,0 +1,2 @@
+{# Mensagens do Django (messages framework) exibidas como avisos #}
+{% for m in messages %}<p class="aviso aviso-{{ m.tags }}" role="status">{{ m }}</p>{% endfor %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Responsáveis{% endblock %}
+{% block content %}
+{# TELA 16 — Responsáveis. Tabelas: responsibles, student_responsibles. Contexto: page_obj, can{create,edit,delete}, filter_options. #}
+<header class="page-head"><h1>Responsáveis</h1>{% if can.create %}<button class="btn" hx-get="{% url 'students:responsibles_create' %}" hx-target="#modal-root">Adicionar</button>{% endif %}</header>
+<form id="filtros" class="filtros" hx-get="{% url 'students:responsibles_list' %}" hx-target="#tabela" hx-push-url="true" hx-trigger="input changed delay:300ms, change"><label class="busca">Buscar <input type="search" name="q" value="{{ request.GET.q }}" placeholder="Digite para filtrar"></label></form>
+{# #tabela recarrega quando o backend dispara o evento 'tabela-atualizar' (HX-Trigger) após salvar/excluir #}
+<div id="tabela" hx-get="{% url 'students:responsibles_list' %}" hx-include="#filtros" hx-trigger="tabela-atualizar from:body" hx-target="this">
+  {% include "students/partials/responsibles_table.html" %}
+</div>
+{% endblock %}

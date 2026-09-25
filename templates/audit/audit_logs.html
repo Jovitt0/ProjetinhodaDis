@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Histórico de auditoria{% endblock %}
+{% block content %}
+{# TELA 28 — Histórico de auditoria. Tabelas: audit_logs (somente leitura). Contexto: page_obj, can{create,edit,delete}, filter_options. #}
+<header class="page-head"><h1>Histórico de auditoria</h1></header>
+<form id="filtros" class="filtros" hx-get="{% url 'audit:logs_list' %}" hx-target="#tabela" hx-push-url="true" hx-trigger="input changed delay:300ms, change"><label>Ação <select name="action"><option value="">Todos</option>{% for v, l in filter_options.action %}<option value="{{ v }}" {% if request.GET.action == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}</select></label><label>De <input type="date" name="date_from" value="{{ request.GET.date_from }}"></label><label>Até <input type="date" name="date_to" value="{{ request.GET.date_to }}"></label></form>
+{# #tabela recarrega quando o backend dispara o evento 'tabela-atualizar' (HX-Trigger) após salvar/excluir #}
+<div id="tabela" hx-get="{% url 'audit:logs_list' %}" hx-include="#filtros" hx-trigger="tabela-atualizar from:body" hx-target="this">
+  {% include "audit/partials/logs_table.html" %}
+</div>
+{% endblock %}

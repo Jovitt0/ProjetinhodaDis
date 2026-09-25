@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Nova matrícula{% endblock %}
+{% block content %}
+{# TELA 19 — Nova matrícula. Tabelas: enrollments, enrollment_sequences. Contexto esperado: form (student, academic_year, class_group); POST cria matrícula — o número (CODIGO-ESCOLA-ANO-SEQUENCIA) é gerado pelo banco #}
+<header class="page-head"><h1>Nova matrícula</h1></header>
+<form class="painel" hx-post="{% url 'enrollments:new_enrollment' %}" hx-target="this" hx-swap="outerHTML">{% csrf_token %}
+  {% include "components/_field.html" with field=form.student %}
+  {# Ao mudar o ano letivo, o backend devolve só o <select> de turmas daquele ano #}
+  <div class="campo"><label for="id_academic_year">Ano letivo</label>
+    <select id="id_academic_year" name="academic_year" hx-get="{% url 'enrollments:class_options' %}" hx-target="#campo-turma" hx-swap="innerHTML">
+      {% for y in form.academic_year.field.queryset %}<option value="{{ y.pk }}">{{ y.name }}</option>{% endfor %}</select></div>
+  <div id="campo-turma">{% include "components/_field.html" with field=form.class_group %}</div>
+  <button class="btn">Matricular aluno</button></form>
+{% endblock %}

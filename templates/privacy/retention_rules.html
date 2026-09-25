@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Regras de retenção e descarte{% endblock %}
+{% block content %}
+{# TELA 25 — Regras de retenção e descarte. Tabelas: retention_rules. Contexto: page_obj, can{create,edit,delete}, filter_options. #}
+<header class="page-head"><h1>Regras de retenção e descarte</h1>{% if can.create %}<button class="btn" hx-get="{% url 'privacy:retention_create' %}" hx-target="#modal-root">Adicionar</button>{% endif %}</header>
+<form id="filtros" class="filtros" hx-get="{% url 'privacy:retention_list' %}" hx-target="#tabela" hx-push-url="true" hx-trigger="input changed delay:300ms, change"><label class="busca">Buscar <input type="search" name="q" value="{{ request.GET.q }}" placeholder="Digite para filtrar"></label></form>
+{# #tabela recarrega quando o backend dispara o evento 'tabela-atualizar' (HX-Trigger) após salvar/excluir #}
+<div id="tabela" hx-get="{% url 'privacy:retention_list' %}" hx-include="#filtros" hx-trigger="tabela-atualizar from:body" hx-target="this">
+  {% include "privacy/partials/retention_table.html" %}
+</div>
+{% endblock %}

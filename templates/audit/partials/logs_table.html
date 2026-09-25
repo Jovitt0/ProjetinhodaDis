@@ -1,0 +1,6 @@
+{# PARCIAL HTMX — devolvido sozinho quando request.htmx. Cada linha = 1 objeto de page_obj (já filtrado pela escola ativa). #}
+<table class="tabela"><thead><tr><th>Data</th><th>Usuário</th><th>Escola</th><th>Ação</th><th>Entidade</th><th>IP</th></tr></thead><tbody>
+{% for obj in page_obj %}<tr id="row-{{ obj.pk }}"><td>{{ obj.created_at|date:"d/m/Y H:i" }}</td><td>{{ obj.user.email|default:"—" }}</td><td>{{ obj.school.code|default:"—" }}</td><td>{{ obj.get_action_display }}</td><td>{{ obj.entity_type|default:"—" }}</td><td>{{ obj.ip_address|default:"—" }}</td></tr>
+{% empty %}<tr><td colspan="6" class="vazio">Nenhum evento encontrado para os filtros escolhidos.</td></tr>{% endfor %}
+</tbody></table>
+{% include "components/_pagination.html" %}

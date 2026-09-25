@@ -1,0 +1,7 @@
+{# Campo de formulário: rótulo + widget + erro. Uso: {% include "components/_field.html" with field=form.name %} #}
+<div class="campo{% if field.errors %} tem-erro{% endif %}">
+  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+  {{ field }}
+  {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+  {% for e in field.errors %}<small class="erro" role="alert">{{ e }}</small>{% endfor %}
+</div>

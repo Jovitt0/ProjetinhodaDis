@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Anos letivos{% endblock %}
+{% block content %}
+{# TELA 8 — Anos letivos. Tabelas: academic_years. Contexto: page_obj, can{create,edit,delete}, filter_options. #}
+<header class="page-head"><h1>Anos letivos</h1>{% if can.create %}<button class="btn" hx-get="{% url 'schools:academic_years_create' %}" hx-target="#modal-root">Adicionar</button>{% endif %}</header>
+<form id="filtros" class="filtros" hx-get="{% url 'schools:academic_years_list' %}" hx-target="#tabela" hx-push-url="true" hx-trigger="input changed delay:300ms, change"><label>Situação <select name="status"><option value="">Todos</option>{% for v, l in filter_options.status %}<option value="{{ v }}" {% if request.GET.status == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}</select></label></form>
+{# #tabela recarrega quando o backend dispara o evento 'tabela-atualizar' (HX-Trigger) após salvar/excluir #}
+<div id="tabela" hx-get="{% url 'schools:academic_years_list' %}" hx-include="#filtros" hx-trigger="tabela-atualizar from:body" hx-target="this">
+  {% include "schools/partials/academic_years_table.html" %}
+</div>
+{% endblock %}

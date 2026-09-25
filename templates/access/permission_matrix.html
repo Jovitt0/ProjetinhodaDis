@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Matriz de permissões{% endblock %}
+{% block content %}
+{# TELA 6 — Matriz de permissões. Tabelas: permissions, role_permissions. Contexto esperado: roles (lista), matrix {recurso: [{permission, cells: [{role, granted}]}]}; só Admin Global #}
+<header class="page-head"><h1>Matriz de permissões</h1></header>
+<p class="ajuda">Marque o que cada perfil pode fazer. Cada clique salva na hora.</p>
+{% for resource, rows in matrix.items %}
+<table class="tabela"><caption>{{ resource }}</caption>
+  <thead><tr><th>Ação</th>{% for r in roles %}<th>{{ r.name }}</th>{% endfor %}</tr></thead>
+  <tbody>{% for row in rows %}<tr><td>{{ row.permission.name }}</td>
+    {% for cell in row.cells %}<td><input type="checkbox" aria-label="{{ cell.role.name }}: {{ row.permission.name }}"
+      hx-post="{% url 'access:permission_toggle' %}" hx-vals='{"role": "{{ cell.role.pk }}", "permission": "{{ row.permission.pk }}"}'
+      hx-trigger="change" hx-swap="none" {% if cell.granted %}checked{% endif %}></td>{% endfor %}</tr>{% endfor %}</tbody></table>
+{% endfor %}
+{% endblock %}
